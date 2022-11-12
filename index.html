@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            $("#drag").draggable({
+                containment:'#info_drag',
+                axis:'x',
+                drag:function(){
+
+                    dragX = $("#drag").position().left
+                    $("#info_content").stop().stop().stop().stop().css({'left':-dragX*10.769})
+
+
+                }
+            })
+            $("#menu>li").mouseenter(function(){
+                $(".sub_bg").stop().slideDown(250)
+            })
+
+            $("#menu>li:nth-child(1),#menu>li:nth-child(2),#menu>li:nth-child(3),#menu>li:nth-child(4),#menu>li:nth-child(5)").mouseenter(function(){
+                
+                $(this).children(".sub_menu").css({"display":"block"})
+                $(this).siblings().children(".sub_menu").css({"display":"none"})
+            })
+            $("#menu>li").mouseleave(function(){
+                $(".sub_bg").stop().slideUp(250)
+                
+            })
+            $("#menu").mouseleave(function(){
+                $(".sub_menu").css({"display":"none"})
+            })
+
+
+            $("#info_content").draggable({
+                axis:'x',
+                drag:function(){
+                    contentX = $("#info_content").position().left
+
+                    if(contentX>0){
+                        $("#info_content").stop().animate({left:0})
+                    }
+
+                    if(contentX<-1220){
+                        $("#info_content").stop().animate({left:-1200})
+                    }
+                    dragX = $("#drag").position().left
+                    $("#drag").css({'left':-contentX*104/1200})
+            }
+
+            })
+
+
+
+            $(window).scroll(function(){
+                sc = $(window).scrollTop();
+                if(sc>=160){
+                    $("#header2").css({'position':'fixed'})
+                    $("#menu>.sub_bg").css({"top":"90px"})
+                }
+                else if(sc<=160){
+                    $("#header2").css({'position':'static'})
+                    $("#menu>.sub_bg").css({"top":"100px"})
+                }
+
+                if(sc >= 4500){
+                    $("#kiti").css({'position':'absolute','bottom':'63px'})
+                }
+                else if(sc<=4500){
+                    $("#kiti").css({'position':'fixed','bottom':'63px'})
+                }
+
+            })
+            slide_num = 0;
+
+            
+            $("#slide_bt>li").click(function(){
+                slide_num = $(this).index()*-100
+                slide_bt_num = slide_num/-100;
+                $("#slide_bg").stop().animate({left:slide_num+'%'},500)
+                $("#slide_bt>li").eq(slide_bt_num).css({'opacity':'1'}).siblings().css({'opacity':'0.1'})
+                $("#slide_bt>li").eq(slide_bt_num).html('<img src="icons/imgRoll_indi_on.png" alt="">').siblings().html('<img src="icons/imgRoll_indi.png" alt="">')
+                    $("#slide_stop").css({'opacity':'1'})
+            })
+            $("#slide_next").click(function(){
+                
+                if(slide_num<=-600){
+                    slide_num = 0;
+                    $("#slide_bg").css({'left':'0'})
+                }
+                slide_num = slide_num - 100;
+                $("#slide_bg").stop().animate({left:slide_num+'%'},500)
+                slide_bt_num = slide_num/-100;
+                    if(slide_bt_num == 6){
+                        slide_bt_num=0;
+                    }
+
+                $("#slide_bt>li").eq(slide_bt_num).css({'opacity':'1'}).siblings().css({'opacity':'0.1'})
+                $("#slide_bt>li").eq(slide_bt_num).html('<img src="icons/imgRoll_indi_on.png" alt="">').siblings().html('<img src="icons/imgRoll_indi.png" alt="">')
+                    $("#slide_stop").css({'opacity':'1'})
+
+
+            })
+            
+
+            $("#slide_prev").click(function(){
+
+                slide_num = slide_num + 100
+
+                if(slide_num>0){
+                    
+                    $("#slide_bg").css({'left':'-600%'})
+                    slide_num = -500
+                }
+                $("#slide_bg").stop().animate({left:slide_num+"%"},500)
+
+                slide_bt_num = slide_num/-100;
+
+                    if(slide_bt_num == 6){
+                        slide_bt_num=0;
+                    }
+
+                $("#slide_bt>li").eq(slide_bt_num).css({'opacity':'1'}).siblings().css({'opacity':'0.1'})
+                $("#slide_bt>li").eq(slide_bt_num).html('<img src="icons/imgRoll_indi_on.png" alt="">').siblings().html('<img src="icons/imgRoll_indi.png" alt="">')
+                    $("#slide_stop").css({'opacity':'1'})
+
+
+
+
+                
+            })
+
+
+            setInterval(function(){
+
+                if(slide_num<=-600){
+                    slide_num = 0;
+                    $("#slide_bg").css({'left':'0'})
+                }
+                slide_num = slide_num - 100;
+                $("#slide_bg").stop().animate({left:slide_num+'%'},500)
+                slide_bt_num = slide_num/-100;
+                    if(slide_bt_num == 6){
+                        slide_bt_num=0;
+                    }
+
+                $("#slide_bt>li").eq(slide_bt_num).css({'opacity':'1'}).siblings().css({'opacity':'0.1'})
+                $("#slide_bt>li").eq(slide_bt_num).html('<img src="icons/imgRoll_indi_on.png" alt="">').siblings().html('<img src="icons/imgRoll_indi.png" alt="">')
+                    $("#slide_stop").css({'opacity':'1'})
+
+
+
+            },4000)
+
+
+
+
+
+
+            $("#middle").css({'margin-top':'0','opacity':'1'})
+            $('#pop_close').click(function(){
+                $('#popup').css({'display':'none'})
+            })
+
+            $(window).scroll(function(){
+                sc = $(window).scrollTop();
+                $("#scroll_text").text(sc)
+                if(sc>=400){
+                    $("#event>h2").css({'opacity':'1','margin-top':'100px'})
+                    $("#event>p").css({'opacity':'1','margin-top':'25px'})
+                    $("#event_box").css({'opacity':'1','margin-top':'50px'})
+                    $("#event_btn").css({'opacity':'1','margin-top':'60px'})
+                }
+                if(sc>=1500){
+                    $("#info>h2").css({'margin-top':'80px','opacity':'1'})
+                    $("#info>p").css({'margin-top':'40px','opacity':'1'})
+                    $("#info_content").css({'margin-top':'30px','opacity':'1','transition':'0s 0s','position':'absolute'})
+                    $("#info_btn").css({'margin-top':'360px','opacity':'1'})
+                }
+
+                if(sc>=2600){
+                    $("#atraction_main>h2").css({'margin-top':'100px','opacity':'1'})
+                    $("#atraction_btn_box1").css({'margin-top':'50px','opacity':'1'})
+                    $("#atraction_content").css({'margin-top':'70px','opacity':'1'})
+                    $("#atraction_btn_box2").css({'margin-top':'75px','opacity':'1'})
+
+                }
+                if(sc>=3900){
+                    $("#content>h2").css({'opacity':'1','margin-top':'100px'})
+                    $("#content>p").css({'opacity':'1','margin-top':'30px'})
+                    $(" #content_box1").css({'opacity':'1','margin-top':'0px'})
+                    $(" #content_box2").css({'opacity':'1','margin-top':'30px'})
+                }
+            })
+
+            atraction_num = 1
+            $("#atraction_btn_box1>button").click(function(){
+                atraction_num = $(this).index() + 1
+                $(this).css({"border": "2px solid #6217EC","color":"#6217EC"}).siblings().css({"border": "2px solid #80808A","color":"#80808A"})
+
+                $("#atraction_content1>img").attr({"src":"images/atraction"+atraction_num+"_1.jpg"})
+                $("#atraction_content2>img").attr({"src":"images/atraction"+atraction_num+"_2.jpg"})
+                $("#atraction_content3>img").attr({"src":"images/atraction"+atraction_num+"_3.jpg"})
+                $("#atraction_content4>img").attr({"src":"images/atraction"+atraction_num+"_4.jpg"})
+                $("#atraction_content5>img").attr({"src":"images/atraction"+atraction_num+"_5.jpg"})
+                $("#atraction_content6>img").attr({"src":"images/atraction"+atraction_num+"_6.jpg"})
+
+                if(atraction_num == 1){
+                    $("#atraction_content1>h3").text("언더씨킹덤")
+                    $("#atraction_content1>p").text("아이와 함께 떠나는 해저왕국 탐험!")
+                    $("#atraction_content2>h3").text("유레카")
+                    $("#atraction_content2>p").text("높이높이 날아올라요~")
+                    $("#atraction_content3>h3").text("점핑피쉬")
+                    $("#atraction_content3>p").text("신나는 해저여행")
+                    $("#atraction_content4>h3").text("스윙팡팡")
+                    $("#atraction_content4>p").text("로티와 친구들이 함께 팡팡~")
+                    $("#atraction_content5>h3").text("매직붕붕카")
+                    $("#atraction_content5>p").text("헨젤과 그레텔을 구해주세요!")
+                    $("#atraction_content6>h3").text("키즈토리아")
+                    $("#atraction_content6>p").text("마음껏 즐길수 있는 거대한 동화속 세상")
+                }
+                else if(atraction_num == 2){
+                    $("#atraction_content1>h3").text("자이로스핀")
+                    $("#atraction_content1>p").text("자이로 시리즈 3번째!")
+                    $("#atraction_content2>h3").text("혜성특급")
+                    $("#atraction_content2>p").text("특급열차와 함께 떠나요")
+                    $("#atraction_content3>h3").text("자이로스윙")
+                    $("#atraction_content3>p").text("자유낙하와 자유회전을 동시에")
+                    $("#atraction_content4>h3").text("아트란티스")
+                    $("#atraction_content4>p").text("어트랙션의 혁명 최고의 스릴")
+                    $("#atraction_content5>h3").text("번지드롭")
+                    $("#atraction_content5>p").text("번지점프의 짜릿한 묘미!")
+                    $("#atraction_content6>h3").text("회전그네")
+                    $("#atraction_content6>p").text("빙글빙글 멈출 수 없는 재미")
+                }
+                else if(atraction_num == 3){
+                    $("#atraction_content1>h3").text("후룸라이드")
+                    $("#atraction_content1>p").text("색다른 모험, 쥬라기 시대로")
+                    $("#atraction_content2>h3").text("신밧드의 모험")
+                    $("#atraction_content2>p").text("신비한 모험을 떠나요~")
+                    $("#atraction_content3>h3").text("파라오의 분노")
+                    $("#atraction_content3>p").text("실감나는 라이드를 즐기자!")
+                    $("#atraction_content4>h3").text("스페인 해적선")
+                    $("#atraction_content4>p").text("거친 파도와 같은 아찔함!")
+                    $("#atraction_content5>h3").text("후렌치 레볼루션")
+                    $("#atraction_content5>p").text("숨막히는 롤러코스터의 매력")
+                    $("#atraction_content6>h3").text("범퍼카")
+                    $("#atraction_content6>p").text("좌충우돌 부딪히는 즐거운 소리")
+                }
+            })
+        })
+
+    </script>
+
+    <style>
+        *{margin: 0;padding: 0;list-style: none;font-family: 'Noto Sans KR', sans-serif;}
+
+        header{width: 100%;height: 140px;position: absolute;top: 0;left: 0;z-index: 9999;}
+        #header1{width: 100%;height: 40px;border-top: 1px solid #ddd;border-bottom: 1px solid #ddd;background-color: #f8f8f8;}
+        #header1_box{width: 1264px;height: 32px;margin: auto;margin-top: 4px;}
+        #header1_left_menu{width: 900px;height: 32px;float: left; cursor: pointer;}
+        #header1_left_menu li {height: 32px; float: left;  margin-right: 25px; line-height: 32px; font-size: 12px; color: #555; }
+        #header1_left_menu li img{ vertical-align: middle;  width: 27px; height: 32px; margin-right: 10px;}
+        #header1_right_menu{width: 350px;height: 32px;float: right;}
+        #header2{width: 100%;height: 100px;border-bottom: 1px solid #ddd;position: static;top: 0;left: 0;z-index: 9999;background-color: #fff;}
+        #header2_box{width: 1470px;height: 90px;margin: auto; margin-top: 10px;position: relative;}
+        #place li{height: 32px; float: left; font-size: 13px; font-weight: 400; margin-right: 10px; line-height: 32px; color: #555; cursor: pointer;}
+        #place li:last-child { margin-right: 20px; }
+        #login li{height: 32px; float: left; font-size: 13px; margin-right: 10px; line-height: 32px; color: #000; font-weight: 800; cursor: pointer;}
+        #kor { margin-top: 7px; background-color: transparent; border: none; font-size: 15px; font-weight: 600; cursor: pointer;}
+        #logo { float: left; cursor: pointer;margin-left: 0px;}
+        #menu{margin-left: 140px;float: left;}
+
+        #menu>li {height: 102px;width: 120px;  float: left; margin-left: 40px; line-height: 90px; font-weight: 800; color: #000; cursor: pointer;text-align: center;}
+        #menu>li>.sub_menu{width: 190px;position: absolute;left: 290px;top: 130px;height: 400px;z-index: 4;display: none;}
+        
+        #menu>li>.sub_menu>li{width: 100%;height: 54px;line-height: 54px;font-size: 18px;float: left;border-bottom: 1px solid #e1e1e1;text-align-last: left;position: relative;}
+        #menu>li>.sub_menu>li:hover{color: #5a12e0;border-bottom: 1px solid #5a12e0;}
+        #menu>li>.sub_menu>li:hover>span{display: inline-block;}
+        #menu>li>.sub_menu>li>span{float: right;display: none;}
+        #menu>li>.sub_menu>li>.subsub_menu{position: absolute;left: 190px;top: 0;font-size: 15px;width: 200px;display: none;}
+        #menu>li>.sub_menu>li:hover>.subsub_menu{display: block;}
+        #menu>li>.sub_menu>li>.subsub_menu>li{height: 40px;line-height: 40px;font-weight: 300;color: #000;width: 100%;}
+        #menu>li>.sub_menu>li>.subsub_menu>li>span{margin-left: 45px;}
+        #menu>li>.sub_menu>li>.subsub_menu>li:hover{color: #5a12e0;}
+        .sub_bg{width: 1910px;height: 330px;position: absolute;top: 80px;left: -357px;background-color:#fff;border-bottom: 1px solid #e7e7e7;border-top: 2px solid #6f23f9;overflow: hidden;float: none;z-index: 3;display: none;}
+        #menu>.sub_bg{width: 1910px;height: 330px;position: absolute;top: 100px;left: -264px;background-color:#fff;border-bottom: 1px solid #e7e7e7;border-top: 2px solid #6f23f9;overflow: hidden;float: none;box-sizing: border-box;}
+        #menu>.sub_bg li{height: 24px;text-align-last: left;}
+
+        #menu>.sub_bg>#sub_box1{width: 210px;height: 330px;border-right: 1px solid gray;position: absolute;left: 250px;top: 0px;}
+        #menu>.sub_bg>#sub_box1>img{margin-top: 40px;float: left;}
+        #menu>.sub_bg>#sub_box1>ul{margin-top: 100px;}
+        #menu>.sub_bg>#sub_box1>ul>li{margin-bottom: 15px;font-size: 18px;}
+        #menu>.sub_bg>#sub_box1>ul>li:nth-child(1){font-size: 16px;font-weight: 300;}
+        #menu>.sub_bg>#sub_box1>ul>li:nth-child(3){font-size: 20px;font-weight: 600;}
+        #menu>.sub_bg>#sub_box1>ul>li:nth-child(4){font-size: 20px;font-weight: 600;}
+        #menu>.sub_bg>#sub_box1>ul>li:nth-child(2){font-size: 20px;font-weight: 300;}
+        
+
+        #menu>.sub_bg>#sub_box3{height: 440px;background: url(images/quickOpen_bg.png) center no-repeat;width: 530px;background-size: cover;position: absolute;bottom: 0;right: 250px;}
+        #menu>.sub_bg>#sub_box3>div{background: #6e23f9c2;height: 330px;width: 270px;position: absolute;right: 0;bottom: 0;}
+        #menu>.sub_bg>#sub_box3>div>img{margin-left: 30px;margin-top: 40px;}
+        #menu>.sub_bg #sub_box3_phone{position: absolute;bottom: 0px;right: 0;width: 250px;height: 200px;}
+        #menu>.sub_bg>#sub_box3>div>h3{font-size: 22px;color: #fff;margin-left: 30px;margin-top: 35px;height: 50px;line-height: 30px;text-align-last: left;}
+        #menu>.sub_bg>#sub_box3>div>h3>span{color: #ffc600;}
+        #menu>.sub_bg>#sub_box3>div>ul{font-size: 16px;margin-top: 15px;list-style: circle;margin-left: 50px;color: #fff;}
+        #menu>.sub_bg>#sub_box3>div>ul>li{list-style: disc;}
+       #header2_btn {height: 70px; width: 325px; position: absolute; top: 0;bottom: 0;right: 0;margin: auto; }
+       #header2_btn li {float: left; margin-left: 30px ; margin-top: 12px; color: #550adf; cursor: pointer; }
+       #header2_btn li:nth-child(1) { margin-left: 0; }
+       #header2_btn li:nth-child(2) { margin-top: 15px;}
+       #header2_btn li:nth-child(4) img {margin-left: 10px;}
+       #header2_btn li:nth-child(5) img {margin-left: 8px;}
+       #header2_btn li img {}
+
+    
+
+
+       #kiti { width: 203px; height: 189px;  position: fixed;right: 10px;bottom: 63px; z-index: 9999;}
+       #kiti_Box { width: 194px; height: 115px; }
+
+
+
+
+       #quick { float: right; margin-right: 30px; position: relative; }
+       #quick h4{ color: #fff; position: absolute;right: 12px;top: 24px; font-size: 15px; font-weight: 900;}
+       #slide{width: 100%;height: 717px;background-color: #fff;margin: auto;position: relative;margin-top: 138px;overflow: hidden;}
+        #slide_bg{width: 700%;height: 721px;position: absolute;}
+        #slide_bg>li{width: 14.285%;height: 721px;float: left;}
+        #slide_bg>li:nth-child(1){background: url(images/bg1.jpg) center no-repeat ;}
+        #slide_bg>li:nth-child(2){background: url(images/bg2.jpg) center no-repeat ;}
+        #slide_bg>li:nth-child(3){background: url(images/bg3.jpg) center no-repeat ;}
+        #slide_bg>li:nth-child(4){background: url(images/bg4.jpg) center no-repeat ;}
+        #slide_bg>li:nth-child(5){background: url(images/bg5.jpg) center no-repeat ;}
+        #slide_bg>li:nth-child(6){background: url(images/bg6.jpg) center no-repeat ;}
+        #slide_bg>li:nth-child(7){background: url(images/bg1.jpg) center no-repeat ;}
+
+
+
+
+
+       #slide_bt{width: 225px;height: 43px;border-radius: 20px;background-color: rgba(0, 0, 0, 0.757);position: absolute;left: 0;right: 0;bottom: 50px;margin: auto;}
+       #slide_bt li{width: 13px;height: 13px;border-radius: 100%;float: left;opacity: 0.1;line-height: 43px;margin-right: 12px;cursor: pointer;}
+       #slide_bt li:nth-child(1){opacity: 1;margin-left: 30px;}
+       #slide_bt li:nth-last-child(1){opacity: 1;float: right;margin-right: 28px;}
+       #slide_next{width: 70px;height: 70px;position: absolute;top: 0;bottom: 0;right: 40px;margin: auto;cursor: pointer;background: url(icons/imgRoll_next.png);}
+       #slide_next:hover{background: url(icons/imgRoll_next_on.png);}
+       #slide_prev{width: 70px;height: 70px;position: absolute;bottom: 0;top: 0;left: 40px;margin: auto;cursor: pointer;}
+       #slide_prev:hover{opacity: 1;background: url(icons/imgRoll_prev_on.png);}
+       #middle{width: 372px;height: 80px;border-bottom: 1px solid rgb(184, 184, 184);margin: auto;margin-top: 120px;opacity: 0;transition: 1.2s;}
+       #middle>div>div>h2{font-size: 20px;font-weight: 900;line-height: 46px;}
+       #middle_box{width: 372px;height: 46px;margin: auto;margin-top: 17px;cursor: pointer;}
+       #middle_left_box{width: 237px;height: 46px;float: left;}
+       #middle_left_box img{width: 35px;height: 35px;float: left;margin-top: 5px;}
+       #middle_left_box h2{float: right;letter-spacing: -2px;text-align: center;margin-right: 15px;}
+       #middle_right_box{width: 135px;height: 46px;float: right;}
+       #middle_right_box h2{text-align: center;}
+       #event{width: 1056px;height: 1040px;margin: auto;text-align: center;overflow: hidden;}
+       #event h2{font-size: 34px;font-weight: 380; margin-top: 100px;margin-top: 150px;opacity: 0;transition: 0.5s;}
+       #event h2 span{font-weight: 900;}
+       #event p{margin-top: 28px;color: rgb(120, 120, 120);margin-top: 150px;opacity: 0;transition: 0.8s;}
+       #event_box{width: 1056px;height: 630px;border: 1px solid rgb(230, 230, 230);margin-top: 250px;opacity: 0;transition: 1.2s;}
+       #event_box li{width: 264px;height: 315px;float: left;border: 1px solid rgb(230, 230, 230);box-sizing: border-box;position: relative;z-index: 2;}
+       #event_box li:hover{border: 2px solid #550bDf;color: #550bDf;cursor: pointer;box-shadow: 2px 2px 10px  rgba(0, 0, 0, 0.2);z-index: 3;}
+       #event_box li h6{position: absolute;bottom: 60px;left: 20px;color: #550bDf;font-size: 18px;font-weight: 380;}
+       #event_box li h4{position: absolute;bottom: 30px;left: 20px;font-weight: 900;font-size: 20px;}
+       #event_btn{width: 200px;height: 50px;border-radius: 30px;background-color: #550bDf;color: #fff;font-size: 16px;line-height: 50px;margin-top: 160px;opacity: 0;
+        border: 0px solid #000; cursor: pointer;transition: 1.3s;}
+        #info{width: 100%;height: 1070px;background: url(images/mainCon2_bg_20220103.jpg) center no-repeat;background-size: cover;
+        overflow: hidden; position: relative;}
+        #info_left_btn{width: 200px;height: 50px;background-color: #000;border-radius: 30px;}
+        #info h2  { margin-top: 180px;font-size: 36px;  text-align: center; color: white;opacity: 0;transition: 0.4s;}
+        #info>p { margin-top: 120px; font-size: 16px; text-align: center; color: white;opacity: 0;transition: 0.5s 0.2s;}
+
+
+
+
+        #info_content { width: 3000px; height: 350px;  margin-top: 150px; cursor: pointer;opacity: 0;transition: 0.8s 0.5s;position: absolute;}
+
+        #info_content li h1{position: absolute;bottom: 0;left: 0;}
+        #info_content li { width: 276px; height: 350px; margin-right: 20px;   float: left; position: relative; margin-top: 100px;}
+        #info_content li p {position: absolute; top: 250px; left: 25px; font-size: 20px; font-weight: 400; color: rgba(253, 253, 253, 0.849); letter-spacing: -2px;}
+        #info_content li p:hover { font-size: 20px; font-weight: 650; color: #fff;}
+
+
+        #info_content li:first-child {margin-left: 20px;}
+        #info_content li:last-child {margin-right: 0;}
+        #info_btn   {width: 480px; height: 58px; margin: auto;opacity: 0; transition: 1.2s;position: absolute;left: 0;right: 0;bottom: 50px;margin: auto;margin-top: 350px;}
+        #info_left_btn {border: white; width: 222px; height: 58px; border-radius: 30px; color: purple; background-color: white; font-size: 18px; cursor: pointer;}
+        #info_right_btn { width: 222px; height: 58px; border-radius: 30px; background-color: transparent; border: 2px solid white; float: right; color: #fff; font-size: 18px;
+        cursor: pointer;}
+        .bgbox { width: 100%; height: 100%; position: absolute; left: 0; top: 0; background:linear-gradient(transparent,rgba(0,0,0,0.9)); }
+
+        #info h2 span { font-weight: 400; }
+        #info_drag{width: 152px;height: 6px;border-radius: 10px;background-color: #fff;position: absolute;left: 0;right: 0;bottom: 200px;margin: auto;}
+        #drag{background: url(icons/drag.png) center no-repeat;width: 48px;height: 28px;position: absolute;left: 0;bottom: -11px;}
+
+
+
+
+
+
+
+
+
+        #atraction { width: 100%; height: 1270px; background: url(images/mainCon3_bg.jpg); }
+        #atraction_main {width: 1170px; height: 1200px;  margin: auto; overflow: hidden;}
+        #atraction_main h2 {font-size: 38px;font-weight: 350; text-align: center; margin-top: 200px; opacity: 0;transition: 0.5s;}
+        #atraction_main span { font-weight: 900;text-align: center; }
+        #atraction_btn_box1 { width: 480px; height: 48px;  margin: auto; margin-top: 150px;opacity: 0;transition: 0.7s;}
+        #atraction_btn_box1>button{cursor: pointer;}
+        #atraction_btn_box1 button:nth-child(1) {margin-right: 20px; width: 118px; height: 48px; border-radius: 30px; border: 2px solid #6217EC;
+            background-color: transparent; color:#6217EC; font-size: 16px; font-weight: 900;}
+        #atraction_btn_box1 button:nth-child(2) { margin-right: 20px;width: 146px; height: 48px; border-radius: 30px;border: 1px solid gray; background-color: transparent; color: gray;font-size: 15px; }
+        #atraction_btn_box1 button:nth-child(3) { width: 160px; height: 48px; border-radius: 30px;border: 1px solid gray;background-color: transparent;color: gray;font-size: 15px;}          
+        #atraction_content {width: 1170px; height: 720px;  margin-top: 270px; position: relative;opacity: 0;transition: 0.8s 0.5s;}
+        #atraction_content>div{cursor: pointer;}
+        #atraction_content1 { width: 574px; height: 350px; background-color: white; }
+        #atraction_content1:hover{ background-color: #6217EC; color: white;color: gray;}
+        #atraction_content1 h3{color: black; padding-left: 35px; padding-top: 20px; font-size: 21px; font-weight: 800; letter-spacing: -2px;}
+        #atraction_content1 p{color:gray; padding-left: 35px; margin-top: 10px; letter-spacing: -2px; font-size: 15px;}
+        #atraction_content1:hover{ background-color: #6217EC; }
+        #atraction_content1:hover p {color: white;}
+        #atraction_content1:hover h3{color: white;}
+        #atraction_content2 { width: 276px; height: 350px; background-color: white;  position: absolute; left: 600px;top: 0px;}
+        #atraction_content2 h3{color: black; margin-left: 30px; margin-top: 18px; font-size: 21px;}
+        #atraction_content2 p{color:gray; margin-left: 30px; margin-top: 10px; font-size: 16px; letter-spacing: -2px;}
+        #atraction_content2:hover{ background-color: #6217EC;color: white;}
+        #atraction_content2:hover p {color: white;}
+        #atraction_content2:hover h3{color: white;}
+        #atraction_content3{ width: 276px; height: 350px; background-color: white; position: absolute; left: 900px;top: 0px;}
+        #atraction_content3 h3{color: black; margin-left: 30px;  font-size: 21px; letter-spacing: -2px;}
+        #atraction_content3 p{color:gray; margin-left: 30px; margin-top: 8px; font-size: 16px; letter-spacing: -2px;}
+        #atraction_content3:hover{ background-color: #6217EC; color: white;}
+        #atraction_content3:hover p {color: white;}
+        #atraction_content3:hover h3{color: white;}
+        #atraction_content4{ width: 276px; height: 350px; background-color: white; position: absolute; top: 380px;}
+        #atraction_content4 h3{color: black; margin-left: 30px; margin-top: 20px; font-size: 21px; letter-spacing: -2px;}
+        #atraction_content4 p{color:gray; margin-left: 30px; margin-top: 10px; font-size: 16px; letter-spacing: -2px;}
+        #atraction_content4:hover{ background-color: #6217EC;}
+        #atraction_content4:hover p {color: white;}
+        #atraction_content4:hover h3{color: white;}           
+        #atraction_content5{ width: 276px; height: 350px; background-color: white; position: absolute; left: 300px; top: 380px; }
+        #atraction_content5 h3{color: black; margin-left: 30px; margin-top: 20px; font-size: 21px; letter-spacing: -2px;}
+        #atraction_content5 p{color:gray; margin-left: 30px; margin-top: 10px; font-size: 15px; letter-spacing: -1px;}
+        #atraction_content5:hover{ background-color: #6217EC;}
+        #atraction_content5:hover p {color: white;}
+        #atraction_content5:hover h3{color: white;}
+        #atraction_content6{ width: 574px; height: 350px; background-color: white; position: absolute; left: 600px; top: 380px;}
+        #atraction_content6 h3{color: black; margin-left: 30px; margin-top: 20px; font-size: 21px; letter-spacing: -2px;}
+        #atraction_content6 p{color:gray; margin-left: 30px; margin-top: 10px; font-size: 15px; letter-spacing: -1px;}
+        #atraction_content6:hover{ background-color: #6217EC;}
+        #atraction_content6:hover p {color: white;}
+        #atraction_content6:hover h3{color: white;}
+        #atraction_btn_box2 { width: 504px;  height: 58px; margin: auto; margin-top: 175px;  transition: 0.8s 0.5s;opacity: 0;}
+        #atraction_btn_box2 button {width: 242px; height: 58px; border-radius: 30px;  font-size: 18px; letter-spacing: -2px; cursor: pointer;}
+        #atraction_btn_box2 button:first-child {color: white; background-color: #6217EC; border: 1px solid  #6217Ec;}
+        #atraction_btn_box2 button:last-child {float: right; border: 1px solid #6217EC; color: #6217EC; background-color: transparent;}
+        #content{width: 1920;height: 1060px;margin: auto; text-align: center; overflow: hidden; position: relative;}
+        #content>h2{font-size: 38px;font-weight: 380; margin-top: 200px; opacity: 0;transition: 0.5s;}
+        #content>h2>span{font-weight: 900;}
+        #content>p{margin-top: 130px;color: rgb(129, 129, 129);opacity: 0;transition: 0.8s;}
+        #content_box{width: 1172px;height: 697px;margin-top: 40px;border-top: 1px solid rgb(163, 163, 163);margin: auto;margin-top: 60px;}
+        #content_box>h2{text-align: left;margin: 30px 0;font-size: 22px; letter-spacing: -3px; font-weight: 900;}
+        #content_box1{width: 1172px;height: 339px;margin: auto;margin-top: 200px;opacity: 0;transition: 1.2s 0.2s;}
+        #content_box1 li{width: 276px;height: 330px;margin-right: 22px;float: left;box-sizing: border-box;position: relative;cursor: pointer;}
+        #content_box1 li h4{position: absolute;bottom: 0;left: 0;font-size: 18px;font-weight: 380;color: rgb(28, 28, 28);}
+        #content_box1 li:nth-last-child(1){margin-right: 0;}
+        #content_box1 li:hover img{box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.405);}
+        #content_box1 li:hover h4{color: #550bDf;font-weight: 900;}
+        #content_box2{width: 1172px;height: 258px;margin-top: 40px;margin: auto;margin-top: 100px;opacity: 0;transition: 1.2s 0.5s;}
+        #content_box2 table{width: 576px;height: 258px;float: left;border: 1px solid rgb(139, 139, 139);box-sizing: border-box;padding: 30px;}
+        #content_box2 table tr th:nth-child(1){width: 320px;height: 30px;text-align: left;font-size: 20px;cursor: pointer;}
+        #content_box2 table tr th:nth-child(2){width: 100px;height: 20px;text-align: left;font-size: 16px;color: rgb(102, 102, 102);line-height: 5px;cursor: pointer;}
+        #content_box2 table tr th:nth-child(2) span{background: url(icons/main_more_icon.png)no-repeat;width: 20px;height: 20px;display: inline-block;cursor: pointer;}
+        #content_box2 table tr td:nth-child(1){text-align: left;height: 30px;color: rgb(0, 0, 0);font-weight: 380;cursor: pointer;}
+        #content_box2 table tr td:nth-child(2){text-align: left;height: 30px;color: rgb(85, 85, 85);cursor: pointer;}
+        #content_box2 table tr td:hover{text-decoration: underline;}
+        #content_box2 li{float: right;cursor: pointer;}
+        footer{width: 100%;height: 391px;border-top: 1px solid rgb(181, 181, 181);}
+        #footer_box{width: 1140px;height: 80px;margin: auto;border-bottom: 1px solid rgb(181, 181, 181);margin-top: 30px;}
+        #footer_box_left{float: left;width: 965px;height: 60px;}
+        #footer_box_left li{float: left;margin-right: 14px;line-height: 60px;letter-spacing: -1px;cursor: pointer;}
+        #footer_box_left li:nth-last-child(1){margin-right: 0;}
+        #footer_box_right{float: right;width: 135px;height: 60px;}
+        #footer_box_right li{float: left;margin-right: 15px;margin-top: 12px;cursor: pointer;}
+        #footer_box_right li:nth-last-child(1){margin-right: 0;}
+        #footer_box2{width: 1140px;height: 274px;margin: auto;margin-top: 30px;}
+        #footer_logo{width: 137px;height: 274px;float: left;}
+        #footer_middle{width: 560px;height: 274px;float: left;}
+        #footer_middle ul  li{font-size: 14px;float: left;border-right: 1px solid rgb(160, 160, 160);height: 15px;line-height: 15px;padding-left: 10px;padding-right: 10px;letter-spacing: -1px;}
+        #footer_middle ul li:nth-child(1){padding-left: 0;}
+        #footer_middle ul li:nth-child(2){border-right: 0px solid #000;}
+        #footer_middle ul li:nth-child(3){padding-left: 0;}
+        #footer_middle ul li:nth-child(5){border-right: 0px solid #000;}
+        #footer_middle ul{margin-bottom: 30px;}
+        #footer_middle>p{margin-top: 30px;float: left;margin-bottom: 30px;font-size: 12px;color: #777;}
+        #middle_box{width: 517px;height: 43px;float: left;}
+        #middle_box>div{float: left;}
+        #middle_box1{width: 293px;height: 40px;font-size: 12px;background: url(icons/isms1.png) left no-repeat;cursor: pointer;}
+        #middle_box1 p{margin-left: 47px;margin-top: 4px;color: #333;}
+        #middle_box2{width: 214px;height: 40px;font-size: 12px;background: url(icons/reward.png) left no-repeat;margin-left: 10px;cursor: pointer;}
+        #middle_box2 p {line-height: 40px;margin-left: 63px;color: #333;}
+        #footer_right select{width: 210px;height: 45px;float: right;border: 1px solid #777;font-size: 14px;border-radius: 2px;}
+
+        #footer_right img{float: right;margin-top: 30px;cursor: pointer;}
+
+
+        #popup{width: 650px;height: 360px;text-align: center;position: fixed;top: 0;bottom: 0;right: 0;left: 0;margin: auto;z-index: 999999;display: none;}
+        #popup_box1{width: 650px;height: 115px;background-color: #6f23f9;color: #fff;}
+        #popup_box1>h2{padding-top: 25px;}
+        #popup_box1 img{position: absolute;top: 28px;right: 26px;cursor: pointer;}
+        #popup_box2{width: 650px;height: 245px;background-color: #fff;}
+        #popup_box2 p{padding-top: 50px;font-weight: 400;font-size: 16px;color: #555;}
+        #popup_box2 div{position: absolute;bottom: 20px;right: 30px;font-size: 16px;color: #555;cursor: pointer;}
+
+        #scroll_text{font-size: 100px;background-color: #000;color: yellow;position: fixed;left: 0;top: 300px;}
+    </style>
+</head>
+<body>
+    
+<header>
+    <!-- header 상단 -->
+    <div id="header1">
+        <!-- w100% h130 -->
+
+        <div id="header1_box">
+            <!-- w1260 h32 요소들을 가운데 고정시키는 박스 입니다.-->
+            <ul id="header1_left_menu">
+                <!-- width: 640px height: 32px -->
+                <li><img src="icons/left_menu1.png" alt="">SEOUL SKY</li>
+                <li><img src="icons/left_menu2.png" alt="">롯데월드 아쿠아리움</li>
+                <li><img src="icons/left_menu3.png" alt="">김해롯데워터파크</li>
+                <li><img src="icons/left_menu4.png" alt="">롯데월드 어드벤처 부산</li>
+                <!-- span에 넣은 이미지는 d:ib 해줘야 보입니다 -->
+            </ul>
+            
+
+            <div id="header1_right_menu">
+                <!-- w330 h32 -->
+                <ul id="place">          
+                    <!-- 아이스링크 / 박물관 -->
+                    <li>민속박물관</li>
+                    <li>아이스링크</li>
+                </ul>
+                <ul id="login">
+                    <li>LOGIN</li>
+                    <li>회원가입</li>
+                </ul>
+                <select name="" id="kor">
+                    <option value="">KOR</option>
+                    <option value=""></option>
+                    <option value=""></option>
+                    <option value=""></option>
+                    <option value=""></option>
+                </select>
+                <!-- select는 오른쪽으로 잘 밀면 됩니다. -->
+            </div>
+
+        </div>
+
+    </div>
+    <!-- header 하단 -->
+
+    <div id="header2">
+
+        <div id="header2_box">
+            <!-- w1270 h70 요소들을 가운데 고정시키는 박스 입니다. -->
+            <h1 id="logo"><img src="icons/logo (1).png" alt=""></h1>
+            <ul id="menu">
+                
+                <li>즐길거리
+                    <ul class="sub_menu">
+                        <li>어트랙션<span>></span></li>
+                        <li>페스티벌<span>></span></li>
+                        <li>공연<span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>금주의 공연</span></li>
+                                <li><span>캐릭터 소개</span></li>
+                            </ul></li>
+                        <li>다이닝/쇼핑<span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>레스토랑</span></li>
+                                <li><span>기프트샵</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>요금/우대혜택
+                    <ul class="sub_menu">
+                        <li>이용요금<span>></span>
+                        <ul class="subsub_menu">
+                            <li><span>티켓요금</span></li>
+                            <li><span>매직패스 프리미엄</span></li>
+                        </ul></li>
+                        <li>이달의 혜택 <span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>혜택정보</span></li>
+                                <li><span>제휴카드 조회</span></li>
+                            </ul>
+                        </li>
+                        <li>연간이용<span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>권종별 기본가격</span></li>
+                                <li><span>할인정보</span></li>
+                                <li><span>특별혜택</span></li>
+                            </ul>
+                        </li>
+                        <li>롯데월드 카드<span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>롯데월드 혜택</span></li>
+                                <li><span>카드혜택</span></li>
+                            </ul>
+                        </li>
+    
+                    </ul>
+                </li>
+                <li>참여프로그램
+                    <ul class="sub_menu">
+                        <li>공연참여<span>></span></li>
+
+                    </ul>
+                </li>
+                <li>이용가이드
+                    <ul class="sub_menu">
+                        <li>운영/운휴<span>></span></li>
+                        <li>파크이용안내<span>></span></li>
+                        <li>편의시설/제도<span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>모바일앱</span></li>
+                                <li><span>편의시절</span></li>
+                                <li><span>장애인편의제도</span></li>
+                            </ul>
+                        </li>
+                        <li>오시는 길<span>></span></li>
+                        <li>가이드맵<span>></span></li>
+                    </ul>
+                </li>
+                <li>소통서비스
+                    <ul class="sub_menu">
+                        <li>공지사항<span>></span></li>
+                        <li>FAQ<span>></span></li>
+                        <li>고객소리함<span>></span>
+                            <ul class="subsub_menu">
+                                <li><span>이용문의</span></li>
+                                <li><span>칭찬/불편/건의</span></li>
+                                <li><span>분실물 센터</span></li>
+                                <li><span>촬영문의</span></li>
+                                <li><span>할로윈PASS 이용약관</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="sub_bg">
+                    <div id="sub_box1">
+                        <img src="icons/1time.png" alt="">
+                        <ul>
+                            <li>10.23(일)</li>
+                            <li>오늘의 파크</li>
+                            <li>운영시간</li>
+                            <li>10:00 - 22:00</li>
+                        </ul>
+                    </div>
+                    <div id="sub_box2"></div>
+                    <div id="sub_box3">
+                        <div>
+                            
+                                <h3><span>앱다운로드</span>로<br>더 스마트하게!</h3>
+                                <ul>
+                                    <li>모바일 예매</li>
+                                    <li>모바일 티켓발권</li>
+                                </ul>
+            
+                                <img src="images/quick_app_img.png" alt="" id="sub_box3_phone">
+            
+                                <img src="" alt="">
+                            
+                        </div>
+              
+                        
+            
+                    </div>
+            
+            
+            
+            
+                </li>
+                
+            </ul>
+
+            <ul id="header2_btn">
+                <!-- w320-->
+                <li>
+                    <img src="icons/너맞지.png" alt="">
+                    <p> 검색</p>
+                </li>
+                <li>
+                    <img src="icons/예매2.png" alt="">
+                    <p>예매</p>
+                </li>
+                <li>
+                    <img src="icons/단체3.png" alt="">
+                    <p>단체</p>
+                </li>
+                <li>
+                    <img src="icons/기업체4.png" alt="">
+                    <p>기업체</p>
+                </li>
+                <li>
+                    <img src="icons/상품몰5.png" alt="">
+                    <p>상품몰</p>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+
+</header>
+    <!--  -->
+
+ 
+    <!-- slide영역 -->
+    <div id="slide"> <!-- w100% h717 -->
+        <ul id="slide_bg">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <img src="icons/imgRoll_next.png" alt="" id="slide_next">
+        <img src="icons/imgRoll_prev.png" alt="" id="slide_prev">
+    <ul id="slide_bt"> <!-- w255 h43 bdrs20 -->
+        <li><img src="icons/imgRoll_indi_on.png" alt=""></li>
+        <li><img src="icons/imgRoll_indi.png" alt=""></li>
+        <li><img src="icons/imgRoll_indi.png" alt=""></li>
+        <li><img src="icons/imgRoll_indi.png" alt=""></li>
+        <li><img src="icons/imgRoll_indi.png" alt=""></li>
+        <li><img src="icons/imgRoll_indi.png" alt=""></li>
+        <img src="icons/play_bt.png" alt="" id="slide_stop">
+    </ul>   
+    </div>
+    <!-- middle 영역-->
+    <div id="middle"> <!-- w1170 h70 bdb  -->
+    <div id="middle_box"> <!-- w372 h46 -->
+    <div id="middle_left_box"> <!-- w237 h46 -->
+        <img src="icons/gnb_timeInfo_bg.png" alt=""> <!-- w35 h32  -->
+        <h2>오늘의 파크 운영시간</h2> <!-- fz18 mt10  -->
+        </div>
+   <div id="middle_right_box"> <!-- w135 h46 -->
+        <h2>10:00 - 21:00</h2> <!-- fz18 --> 
+   </div>
+    </div>
+   </div>
+        <!--  -->
+        <div id="event"> <!-- w1056 h1000  높이 대략적으로만 잡은거라 정확하지 않아요--> 
+            <h2><span>나에게 꼭 맞는 혜택 </span>알아볼까요?</h2>
+            <p>현재 진행 중인 할인혜택을 알아보세요</p>
+            <ul id="event_box"> <!-- w1056 h633 -->
+                <li>
+                    <img src="images/202204211112219010_260.jpg" alt=""> <!-- w264 h221 -->
+                    <h6>31,000원</h6>
+                    <h4>롯데월드카드(삼성카드</h4>
+                </li>
+                <li>
+                    <img src="images/202205220525225560_231.jpg" alt="">
+                    <h6>31,000원</h6>
+                    <h4>롯데월드 제휴카드 온라</h4>
+                </li>
+                <li>
+                    <img src="images/202204211026383460_231.jpg" alt="">
+                    <h6>31,000원</h6>
+                    <h4>삼성카드로 결제하면 누</h4>
+                </li>
+                <li>
+                    <img src="images/202204211120147310_231.jpg" alt="">
+                    <h6>27,000원</h6>
+                    <h4>카카오뱅크 mini카드</h4>
+                </li>
+                <li>
+                    <img src="images/202206020338585490_231.jpg" alt="">
+                    <h6>32,500원</h6>
+                    <h4>무너~야호! 롯데월드 패</h4>
+                </li>
+                <li>
+                    <img src="images/202206090513092340_231.jpg" alt="">
+                    <h6>29,500원</h6>
+                    <h4>미리 여름 방학은 롯데</h4>
+                </li>
+                <li>
+                    <img src="images/202205220513499880_231.jpg" alt="">
+                    <h6>31,000원</h6>
+                    <h4>제휴카드 현장 프로모션</h4>
+                </li>
+                <li>
+                    <img src="images/202205260457261220_231.jpg" alt="">
+                    <h6>340,000원</h6>
+                    <h4>해피 월드 키즈 패밀리</h4>
+                </li>
+            </ul>
+    
+            <button id="event_btn">더 많은 혜택 보기</button> <!-- w201 h51 bdrs20-->
+    
+        </div>
+        <!--  -->
+        <section id="info"> <!-- w100% h1070 , background:url()로 배경 -->
+            <h2><span>다양한 공연 및 퍼레이드</span> 정보를 한눈에!</h2>  <!-- fz 36정도 -->
+            
+            <p>다양한 공연정보를 확인해보세요</p> <!-- fz 16정도 -->
+    
+            <ul id="info_content"><!-- w2940 h350 -->
+                <li><img src="images/썸머 빅 밴드쇼.jpg" alt=""><div class="bgbox"></div><p>썸머 빅 밴드쇼</p></li><!-- w276 h350 mr20px 마지막 li에는 mr0 -->
+                <li><img src="images/썸버브라스 밴드쇼 2.jpg" alt=""><div class="bgbox"></div><p>썸머브라스 밴드쇼</p>
+                
+                </li>
+                <li><img src="images/로터스 어드벤처 퍼레이드3.jpg" alt=""><div class="bgbox"></div><p>로터스 어드벤처 퍼레이드</p></li>
+                <li><img src="images/하나 둘셋 아이스크림4.jpg" alt=""><div class="bgbox"></div><p>하나,둘,셋 아이스크림</p></li>
+                <li><img src="images/고고 바캉스5.jpg" alt=""><div class="bgbox"></div><p>고!고! 바캉스</p></li>
+                <li><img src="images/캐릭터 환타지아6-7.jpg" alt=""><div class="bgbox"></div><p>캐릭터 환타지아1</p></li>
+                <li><img src="images/캐릭터 환타지아6-7.jpg" alt=""><div class="bgbox"></div><p>캐릭터 환타지아2</p></li>
+                <li><img src="images/로티의모험2-사이버 어드벤처8.jpg" alt=""><div class="bgbox"></div><p>로티의모험2-사이버 어드벤처</p></li>
+                <li><img src="images/랫츠 드림 나이트 퍼레이드9.jpg" alt=""><div class="bgbox"></div><p>랫츠 드림 나이트 퍼레이드</p></li>
+                <li><img src="images/9매직캐슬 라이츠업.jpg" alt=""><div class="bgbox"></div><p>매직 캐슬 라이츠업</p></li>
+            </ul>
+    
+            <!-- 여기 있어야 하는 조작 바는 이미지 소스가 없는 듯? -->
+            <div id="info_drag">
+                <div id="drag"></div>
+            </div>
+    
+            <div id="info_btn"><!-- w420 h50 -->
+    
+                <button id="info_left_btn">더많은 공연보기</button><!-- w200 h50 bdrs 30px-->
+                <button id="info_right_btn">참여프로그램보기</button><!-- w200 h50 bdrs 30px-->
+            </div>
+        </section>
+        <!--   -->
+        <section id="atraction"> <!-- w100% h1270, bg 배경 -->
+
+
+            <div id="atraction_main"><!-- w1170 h1050 -->
+    
+                    <h2>재미있고 즐거운  <span>다양한 어트랙션!</span></h2><!-- fz34,fw380, span에 따로 fw900부여 -->
+    
+                    <div id="atraction_btn_box1">
+                        <button>아이와함께</button><!-- w118 h48 bdrs30 -->
+                        <button>야외에서 신나게</button><!-- w146 h48 bdrs30 -->
+                        <button>실내에서 쾌적하게</button><!-- w160 h48 bdrs30 -->
+                    </div>
+    
+                    <div id="atraction_content"><!-- w1170 h720 내부에 있는 친구들은 pos:a로 배치하면 좋을 것 같아요 -->
+    
+                            <div id="atraction_content1"><!-- w574 h350 -->
+                                <img src="images/atraction1_1.jpg" alt="">
+                                <h3>언더씨킹덤</h3>
+                                <p>아이와 함께 떠나는 해저왕국 탐험!</p>
+                            </div>
+                            <div id="atraction_content2"><!-- w276 h350 -->
+                                <img src="images/atraction1_2.jpg" alt="">
+                                <h3>유레카</h3>
+                                <p>높이높이 날아올라요~</p>
+                            </div>
+                            <div id="atraction_content3"><!-- w276 h350 -->
+                                <img src="images/atraction1_3.jpg" alt="">
+                                
+                                <h3>점핑피쉬</h3>
+                                <p>신나는 해저여행</p>
+                            </div>
+                            <div id="atraction_content4"><!-- w276 h350 -->
+                                <img src="images/atraction1_4.jpg" alt="">
+                                <h3>스윙팡팡</h3>
+                                <p>로티와 친구들이 함께 팡팡~</p>
+                            </div>
+                            <div id="atraction_content5"><!-- w276 h350 -->
+                                <img src="images/atraction1_5.jpg" alt="">
+                                <h3>매직붕붕카</h3>
+                                <p>헨젤과 그레텔을 구해주세요!</p>
+                            </div>
+                            <div id="atraction_content6"><!-- w574 h350 -->
+                                <img src="images/atraction1_6.jpg" alt="">
+                                <h3>키즈토리아</h3>
+                                <p>마음껏 즐길수 있는 거대한 동화속 세상</p>
+                            </div>
+    
+                    </div>
+    
+    
+    
+                    <div id="atraction_btn_box2"><!-- w300 h58-->
+                        <button>더 많은 어트랙션 보기</button><button>운휴 정보 보러가기 </button><!-- w242 h58 bdrs30 -->
+                    </div>
+            </div>
+    
+        </section>
+        <!--   -->
+        <div id="content"> <!-- w1172 h960 -->
+
+
+            <div id="kiti">
+                <div id="kiti_Box"><img src="icons/ico_chatbot.png" alt=""></div>
+                <div id="quick"><img src="icons/quick_btn.png" alt=""><h4><b>QUICK</b></h4></div>
+            </div>
+
+            <h2>롯데월드들 좀 더 <br>
+            <span>특별하게 즐기고 싶다면!</span></h2>
+            <p>오늘 롯데월드의 소식을 만나보세요.</p>
+            <div id="content_box"> <!-- w1172 h597 -->
+                <h2>특별한 경험</h2>
+                <ul id="content_box1"> <!-- w1172 h339  -->
+                    <li>
+                        <img src="images/mainCon4_img_hotel.jpg" alt="">
+                        <h4>롯데호텔 월드 로티로리룸</h4>
+                    </li>
+                    <li>
+                        <img src="images/mainCon4_img3_20211231.jpg" alt="">
+                        <h4>샤론캣 프리미엄라운지</h4>
+                    </li>
+                    <li>
+                        <img src="images/mainCon4_img2.jpg" alt="">
+                        <h4>롯데월드 어드벤처 선물권</h4>
+                    </li>
+                    <li>
+                        <img src="images/mainCon4_img1.jpg" alt="">
+                        <h4>연간이용안내</h4>
+                    </li>
+                </ul>
+                <ul id="content_box2"> <!-- w1172 h258 -->
+                    <table> <!-- w576 h258 -->
+                        <tr>
+                            <th>롯데월드 소식</th>
+                            <th>더보기 <span></span></th>
+                        </tr>
+                        <tr>
+                            <td>종이의집 콜라보 이벤트</td>
+                            <td>2022.06.17</td>
+                        </tr>
+                        <tr>
+                            <td>롯데호텔 월드 로티 로리 룸 안내</td>
+                            <td>2022.05.16</td>
+                        </tr>
+                        <tr>
+                            <td>개인정보처리방침 변경안내</td>
+                            <td>2022.04.19</td>
+                        </tr>
+                        <tr>
+                            <td>롯데월드 어드벤처 코로나19 방역 및 예방</td>
+                            <td>2022.04.18</td>
+                        </tr>
+                    </table>
+                    <li><img src="images/201912060405241830.jpg" alt=""></li> <!-- w576 h258 -->
+                </ul>
+            </div>
+        </div>
+    <!-- -->
+    <footer> <!-- w100% h391 -->
+        <div id="footer_box"> <!-- w986 h60  -->
+            <ul id="footer_box_left"> <!-- w986 h60 -->
+                <li>롯데월드소개</li> <!-- lh60px mr15  letter-spacing -1px -->
+                <li>기업제휴 및 입점문의</li>
+                <li>이용약관</li>
+                <li>개인정보처리방침</li>
+                <li>이메일무단수집거부</li>
+                <li>Compliance Program</li>
+                <li>사이트맵</li>
+                <li>인재채용</li>
+                <li>그룹PR</li> <!-- 마지막 li mr0  -->
+            </ul>
+            <ul id="footer_box_right"> <!-- w140 h60 mr15 -->
+                <li><img src="icons/sns_btn1.png" alt=""></li>
+                <li><img src="icons/sns_btn2.png" alt=""></li>
+                <li><img src="icons/sns_btn3.png" alt=""></li> <!-- 마지막 li mr0 -->
+            </ul>
+        </div>
+        <div id="footer_box2"> <!-- w382 h274 -->
+            <div id="footer_logo"><img src="icons/footer_logo.png" alt=""></div> <!-- w137 h274 -->
+            <div id="footer_middle"> <!-- w653 h274 -->
+                <ul>
+                    <li>서울특별시 송파구 올림픽로 240 호텔롯데 롯데월드</li>
+                    <li>대표자 : 최홍훈</li>
+                    <li>사업자등록번호 : 219-85-00014</li>
+                    <li>통신판매업신고번호 : 송파제5513호</li>
+                    <li>전화 : 1661-2000</li>
+                </ul>
+
+                    <p>COPYRIGHT 2018 LOTTEWORLD. ALL RIGHTS RESERVED.</p>
+
+                    <div id="middle_box">
+                        <div id="middle_box1"> <!-- w283 h43 이미지는 배경으로 넣고 pl로 밀면 될걸요 (?) -->
+                            <p>인증범위&nbsp; 온라인 예매 서비스 운영(롯데월드) <br> 
+                                유효기간&nbsp; 2020.11.18~2023.11.17</p>
+                        </div> 
+                        <div id="middle_box2"> <!-- w208 h43  이미지는 배경으로 넣고 pl로 밀면 될걸요 (?) -->
+                            <p>한국서비스대상 명예의전당</p>
+                        </div>
+                    </div>
+            </div> 
+            <div id="footer_right">
+                <select name="" id=""> <!-- w210 h45 fl:r  -->
+                    <option value="" selected>계열사 관련 사이트</option>
+                    <option value="">롯데그룹</option>
+                    <option value="">L.POINT</option>
+                    <option value="">롯데그룹채용</option>
+                    <option value="">롯데제과</option>
+                    <option value="">-빼빼로</option>
+                    <option value="">-헬스원</option>
+                    <option value="">롯데칠성음료</option>
+                    <option value="">-롯데칠성몰</option>
+                    <option value="">롯데리아</option>
+                    <option value="">-롯데리아몰</option>
+                    <option value="">엔제리너스</option>
+                    <option value="">-엔제리너스몰</option>
+                    <option value="">나뚜루</option>
+                    <option value="">크리스피크림도넛</option>
+                    <option value="">롯데푸드</option>
+                    <option value="">-파스퇴르</option>
+                    <option value="">-파스퇴르몰</option>
+                    <option value="">-파스퇴르아이</option>
+                    <option value="">-쉐푸드</option>
+                </select>
+                <img src="images/img_lotthotel_pc.jpg" alt=""> <!-- 이미지 사이즈 w382 h78  -->
+            </div>
+        </div>
+    </footer>
+    
+    
+
+    <div id="popup">
+
+        <div id="popup_box1">
+            <h2>MS 인터넷익스플로러(IE) 브라우저<br>
+                서비스 지원 종료 안내
+            </h2>
+            <img src="icons/popClose_icon2.png" alt="" id="pop_close">
+        </div>
+        <div id="popup_box2">
+
+            <p>MS 인터넷익스플로러(IE) 브라우저 서비스 지원이<br>
+                2022년 6월 15일 종료됨에 따라,<br>
+                안전하고 원활한 서비스 접속을 위해<br>
+                구글 크롬, MS 엣지 등 다른 브라우저 사용을 부탁드립니다.
+            </p>
+            <div id="no_show"><input type="checkbox" name="오늘 하루 보지 않기" id="c_box" >오늘하루 보지 않기</div>
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <h1 id="scroll_text">0</h1>
+
+
+
+
+</body>
+</html>
